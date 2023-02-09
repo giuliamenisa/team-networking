@@ -7,17 +7,56 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <table border="1" id="teams">
-      <thead>
-        <tr>
-          <th>Group</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Github Link</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <form action="secretariat" method="Get">
+      <table border="1" id="teams">
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Github Link</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Group"
+                name="promotion"
+                id="promotion"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Members"
+                name="members"
+                id="nambers"
+                required
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                placeholder="Enter Name"
+                name="name"
+                id="name"
+                required
+              />
+            </td>
+            <td>
+              <input type="text" placeholder="Enter Ur1" name="Ur1" id="Ur1" />
+            </td>
+            <td>
+              <button type="submit">💾</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </form>
     <script src="index.js"></script>
   </body>
 </html>
