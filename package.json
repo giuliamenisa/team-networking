@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/giuliamenisa/team-networking/issues"
   },
-  "homepage": "https://github.com/giuliamenisa/team-networking#readme"
+  "homepage": "https://github.com/giuliamenisa/team-networking#readme",
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
+  }
 }
