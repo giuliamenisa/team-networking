@@ -25,15 +25,15 @@ function createTeamRequest(team) {
   }).then(r => r.json());
 }
 
-function readTeam() {
-  return {
-    promotion: document.getElementById("promotion").value,
-    members: document.getElementById("members").value,
-    name: document.getElementById("name").value,
-    url: document.getElementById("url").value
-  };
+function updateTeamRequest(team) {
+  return fetch("http://localhost:3000/teams-json/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(team)
+  }).then(r => r.json());
 }
-
 function deleteTeamRequest(id) {
   return fetch("http://localhost:3000/teams-json/delete", {
     method: "DELETE",
@@ -42,6 +42,15 @@ function deleteTeamRequest(id) {
     },
     body: JSON.stringify({ id })
   }).then(r => r.json());
+}
+
+function readTeam() {
+  return {
+    promotion: document.getElementById("promotion").value,
+    members: document.getElementById("members").value,
+    name: document.getElementById("name").value,
+    url: document.getElementById("url").value
+  };
 }
 
 function displayTeams(teams) {
@@ -65,30 +74,21 @@ function displayTeams(teams) {
 
 function onSubmit(e) {
   e.preventDefault();
-
+  const team = readTeam();
   if (editId) {
-    console.warn("update", editId);
+    team.id = editId;
+    updateTeamRequest(team);
   } else {
-    const team = readTeam();
-    console.warn("save");
-    createTeamRequest(readTeam()).then(status => {
+    createTeamRequest(team).then(status => {
       if (status.success) {
         window.location.reload();
       }
     });
   }
-
-  createTeamRequest().then(status => {
-    console.warn("status", status.success, status.id);
-    if (status.success) {
-      window.location.reload();
-    }
-  });
 }
 //TODO
-function edit(id) {
+function prepareEdit(id) {
   const team = allTeams.find(team => team.id === id);
-  console.warn("edit", id, team);
   editId = id;
 
   document.getElementById("promotion").value = team.promotion;
@@ -110,7 +110,7 @@ function initEvents() {
       });
     } else if (e.target.matches("a.edit-btn")) {
       const id = e.target.dataset.id;
-      edit(id);
+      prepareEdit(id);
     }
   });
 }
