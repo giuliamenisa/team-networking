@@ -1,3 +1,73 @@
 table {
   width: 100%;
 }
+
+header {
+  display: flex;
+  background-color: rgb(220, 202, 178);
+  margin-bottom: 15px;
+}
+
+h1 {
+  margin: 5px;
+  color: black;
+}
+
+img {
+  border-radius: 50%;
+  border: 3px solid burlywood;
+  margin: 10px;
+}
+
+h1 {
+  padding-top: 40px;
+  margin-left: 15px;
+  color: rgba(170, 81, 14, 0.999);
+  font-style: italic;
+}
+
+body {
+  background-color: rgb(237, 226, 211);
+}
+
+th {
+  background-color: rgb(135, 92, 61);
+  color: aliceblue;
+  font-style: italic;
+}
+
+td {
+  padding-left: 10px;
+}
+
+a.remove-btn:hover {
+  color: red;
+}
+
+a.edit-btn:hover {
+  color: rgb(4, 246, 4);
+}
+
+footer {
+  text-align: center;
+  padding: 5px;
+  text-align: center;
+  background: rgb(135, 92, 61);
+  color: white;
+}
+
+footer a,
+footer a:visited {
+  color: white;
+  vertical-align: top;
+  line-height: 20px;
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 0.2em;
+  transition: 0.5s;
+}
+
+footer a:hover {
+  text-decoration: none;
+  background-color: rgb(220, 202, 178);
+}
