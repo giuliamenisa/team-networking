@@ -92,7 +92,9 @@ function onSubmit(e) {
     updateTeamRequest(team);
   } else {
     createTeamRequest(team).then(status => {
+      console.info(team, status, allTeams);
       if (status.success) {
+        team.id = status.id;
         allTeams.push(team);
         // allTeams = [...allTeams, team]
         displayTeams(allTeams);
