@@ -52,6 +52,14 @@ function readTeam() {
     url: document.getElementById("url").value
   };
 }
+
+function write(team) {
+  document.getElementById("promotion").value = team.promotion;
+  document.getElementById("members").value = team.members;
+  document.getElementById("name").value = team.name;
+  document.getElementById("url").value = team.url;
+}
+
 function getTeamsHTML(teams) {
   return teams
     .map(
@@ -62,9 +70,11 @@ function getTeamsHTML(teams) {
            <td>${team.name}</td>
            <td>${team.url}</td>
            <td>
-              
-             <a data-id="${team.id}"class="remove-btn">✖</a>
-             <a data-id="${team.id}"class="edit-btn">&#9998;</a>
+             <a href="${team.url}" target="_blank">${team.url.replace("https://github.com/", "")}</a>
+           </td>
+            <td> 
+             <a data-id="${team.id}" class="remove-btn">✖</a>
+             <a data-id="${team.id}" class="edit-btn">&#9998;</a>
            </td>
        </tr>`
     )
@@ -72,7 +82,6 @@ function getTeamsHTML(teams) {
 }
 function displayTeams(teams) {
   document.querySelector("#teams tbody").innerHTML = getTeamsHTML(teams);
-  //console.info("display", teamsHTML, teams);
 }
 
 function onSubmit(e) {
@@ -84,7 +93,11 @@ function onSubmit(e) {
   } else {
     createTeamRequest(team).then(status => {
       if (status.success) {
-        window.location.reload();
+        allTeams.push(team);
+        // allTeams = [...allTeams, team]
+        displayTeams(allTeams);
+        //writeTeam({promotion name url members})
+        e.target.reset();
       }
     });
   }
