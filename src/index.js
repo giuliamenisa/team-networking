@@ -66,6 +66,7 @@ function loadTeams() {
 async function onSubmit(e) {
   e.preventDefault();
   const team = readTeam();
+  let status = { success: false };
   if (editId) {
     team.id = editId;
     const status = await updateTeamRequest(team);
@@ -87,15 +88,18 @@ async function onSubmit(e) {
       e.target.reset();
     }
   } else {
-    const status = await createTeamRequest(team);
+    status = await createTeamRequest(team);
     console.warn("status", status.syccess, status.id);
 
     if (status.success) {
       team.id = status.id;
       allTeam = [...allTeams, team];
-      displayTeams(allTeams);
-      e.target.reset();
     }
+  }
+
+  if (status.success) {
+    displayTeams(allTeams);
+    e.target.reset();
   }
 }
 //TODO
