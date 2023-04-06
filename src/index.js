@@ -1,4 +1,4 @@
-import { debounce } from "lodash";
+import debounce from "lodash/debounce";
 import { createTeamsRequest, loadTeamsRequest, updateTeamRequest, deleteTeamRequest } from "./Request";
 import { $, sleep } from "./utilities";
 // const utilities = require('.utilities');
