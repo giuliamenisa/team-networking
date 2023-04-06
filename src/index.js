@@ -1,46 +1,9 @@
+import { createTeamsRequest, loadTeamsRequest, updateTeamRequest, deleteTeamRequest } from "./Request";
 import { sleep } from "./utilities";
 // const utilities = require('.utilities');
 
 let allTeams = [];
 let editId;
-
-function loadTeamsRequest() {
-  return fetch("http://localhost:3000/teams-json", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(r => r.json());
-}
-
-function createTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/create", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
-}
-
-function updateTeamRequest(team) {
-  return fetch("http://localhost:3000/teams-json/update", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(team)
-  }).then(r => r.json());
-}
-function deleteTeamRequest(id) {
-  return fetch("http://localhost:3000/teams-json/delete", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ id })
-  }).then(r => r.json());
-}
 
 function readTeam() {
   return {
@@ -100,12 +63,14 @@ function loadTeams() {
   });
 }
 
-function onSubmit(e) {
+async function onSubmit(e) {
   e.preventDefault();
   const team = readTeam();
   if (editId) {
     team.id = editId;
-    updateTeamRequest(team).then(status => {
+    const status = await updateTeamRequest(team).then(status => {
+      return status;
+
       if (status.success) {
         // // loadTeams();
 
@@ -125,17 +90,15 @@ function onSubmit(e) {
       }
     });
   } else {
-    createTeamRequest(team).then(status => {
-      console.info(team, status, allTeams);
-      if (status.success) {
-        team.id = status.id;
-        allTeams.push(team);
-        allTeams = [...allTeams, team];
-        displayTeams(allTeams);
-        //writeTeam({promotion name url members})
-        e.target.reset();
-      }
-    });
+    const status = await createTeamRequest(team);
+    console.warn("status", status.syccess, status.id);
+
+    if (status.success) {
+      team.id = status.id;
+      allTeam = [...allTeams, team];
+      displayTeams(allTeams);
+      e.target.reset();
+    }
   }
 }
 //TODO
