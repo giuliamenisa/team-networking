@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { createTeamsRequest, loadTeamsRequest, updateTeamRequest, deleteTeamRequest } from "./Request";
 import { $, sleep } from "./utilities";
 // const utilities = require('.utilities');
@@ -126,10 +127,14 @@ function initEvents() {
     editId = undefined;
   });
 
-  $("#search").addEventListener("input", e => {
-    const teams = searchTeams(e.target.value);
-    displayTeams(teams);
-  });
+  $("#search").addEventListener(
+    "input",
+    debounce(e => {
+      const teams = searchTeams(e.target.value);
+      displayTeams(teams);
+      console.info("search");
+    }, 1000)
+  );
 
   document.querySelector("#teams tbody").addEventListener("click", async e => {
     if (e.target.matches("a.remove-btn")) {
